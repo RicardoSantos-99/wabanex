@@ -18,5 +18,8 @@ defmodule Wabanex.User do
     %__MODULE__{}
     |> cast(params, @fields)
     |> validate_required(@fields)
+    |> validate_length(:password, min: 8)
+    |> validate_format(:email, ~r/@/)
+    |> unique_constraint([:email])
   end
 end
