@@ -1,9 +1,7 @@
 defmodule Wabanex do
-  @moduledoc """
-  Wabanex keeps the contexts that define your domain
-  and business logic.
+  alias Wabanex.Users.Create, as: CreateUser
+  alias Wabanex.Users.Get, as: GetUser
 
-  Contexts are also responsible for managing your data, regardless
-  if it comes from the database, an external API or others.
-  """
+  defdelegate createUser(params), to: CreateUser, as: :call
+  defdelegate getUser(id), to: GetUser, as: :call
 end
