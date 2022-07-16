@@ -13,6 +13,10 @@ defmodule WabanexWeb.Schema.Types.Root do
       resolve &UserResolver.get/2
       # resolve fn params, context -> UserResolver.get(params, context) end
     end
+
+    field :get_users, list_of(:user) do
+      resolve &UserResolver.list/2
+    end
   end
 
   object :root_mutation do
@@ -20,7 +24,13 @@ defmodule WabanexWeb.Schema.Types.Root do
       arg :input, non_null(:create_user_input)
 
       resolve &UserResolver.create/2
-      # resolve fn params, context -> UserResolver.get(params, context) end
+      middleware TranslateErrors
+    end
+
+    field :delete_user, type: :user do
+      arg :id, non_null(:uuid4)
+
+      resolve &UserResolver.delete/2
       middleware TranslateErrors
     end
   end
