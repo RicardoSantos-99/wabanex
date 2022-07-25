@@ -24,5 +24,15 @@ defmodule Wabanex.ImcTest do
 
       assert expect_response == response
     end
+
+    test "when the wrong filename is given, return an error" do
+      params = %{"filename" => "student.csv"}
+
+      response = IMC.calculate(params)
+
+      expect_response = {:error, "Error while reading file"}
+
+      assert expect_response == response
+    end
   end
 end
